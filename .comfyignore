@@ -1,0 +1,8 @@
+# Keep the Registry archive limited to the node, metadata and documentation.
+assets/
+examples/
+workflows/
+model-reference.json
+node-inventory.json
+SHA256SUMS
+.github/

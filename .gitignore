@@ -13,3 +13,6 @@ venv/
 *.pth
 .DS_Store
 Thumbs.db
+
+# Local Comfy Registry upload artifact
+/node.zip

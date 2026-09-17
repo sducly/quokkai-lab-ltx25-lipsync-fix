@@ -1,0 +1,16 @@
+[project]
+name = "quokkailab-audio-conditioning"
+version = "1.0.0"
+description = "Validated RC2 audio conditioning for LTX-2.5 lip-sync, with separate clean output audio."
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26,<2.5", "scipy==1.15.1", "soundfile>=0.13,<0.14"]
+
+[project.urls]
+Repository = "https://github.com/sducly/quokkai-lab-ltx25-lipsync-fix"
+Documentation = "https://github.com/sducly/quokkai-lab-ltx25-lipsync-fix#readme"
+"Bug Tracker" = "https://github.com/sducly/quokkai-lab-ltx25-lipsync-fix/issues"
+
+[tool.comfy]
+PublisherId = "quokkailab"
+DisplayName = "QuokkaiLab Audio Conditioning"

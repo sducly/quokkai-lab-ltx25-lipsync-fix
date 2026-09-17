@@ -19,8 +19,14 @@ settings are also identical. Both outputs use the same clean speech soundtrack.
 [`workflows/ltx25-baseline.json`](workflows/ltx25-baseline.json)
 
 The baseline is our equivalent pipeline with the conditioning treatment disabled.
-It is **not an official LTX workflow**. Download the repository with GitHub's
-**Code → Download ZIP** as well: the workflows need the bundled custom node below.
+It is **not an official LTX workflow**. Both workflows use the
+[QuokkaiLab Audio Conditioning](https://registry.comfy.org/quokkailab/quokkailab-audio-conditioning)
+package (`quokkailab-audio-conditioning`, version `1.0.0`).
+
+The package has been uploaded to the official Registry. At the publication check
+on 2026-09-17, version `1.0.0` was still `NodeVersionStatusPending`; normal Manager
+discovery is not yet confirmed. Check the [live version status](https://api.comfy.org/nodes/quokkailab-audio-conditioning/versions/1.0.0).
+The bundled source remains available for manual installation below.
 
 English speech sometimes produced weak or unstable mouth motion in our production
 workflow. This empirical workaround preprocesses a copy of speech for LTX
@@ -33,17 +39,18 @@ official or universal fix, and the exact model-level cause is unknown.
 1. **Install the five exact model files** in the [model directories listed below](#model-files).
    The reference setup is ComfyUI **0.34.0** with frontend **1.51.9** and nested
    subgraph support. See [Requirements](#requirements) for the tested environment.
-2. **Install the bundled node.** Copy the entire `custom_nodes/quokkailab_audio`
-   folder from this repository into your ComfyUI installation's `custom_nodes/`.
-   The resulting file should be `custom_nodes/quokkailab_audio/__init__.py`.
-   Required LTX and video nodes are in the tested ComfyUI core; no other
-   third-party custom-node pack is required by these workflows.
-3. **Install its Python packages using ComfyUI's Python**, from the ComfyUI
-   directory: `python -m pip install -r custom_nodes/quokkailab_audio/requirements.txt`.
-   Here `python` must be the interpreter that runs your ComfyUI, not an unrelated
-   system Python. Use your installation's virtual-environment or bundled Python
-   executable as appropriate. Dependencies are NumPy, SciPy and SoundFile;
-   keep ComfyUI's existing PyTorch installation. **Restart ComfyUI.**
+2. **Install QuokkaiLab Audio Conditioning** through ComfyUI Manager when the
+   package is available there, or use `comfy node install quokkailab-audio-conditioning`
+   with Comfy CLI targeting your local ComfyUI. While Registry approval is pending,
+   use the manual fallback: download this repository and copy the entire
+   `custom_nodes/quokkailab_audio` folder into ComfyUI's `custom_nodes/` directory.
+   Install only one copy of the node. Required LTX and video nodes are in the
+   tested ComfyUI core; no other third-party custom-node pack is required.
+3. **For manual installation, install the Python dependencies using ComfyUI's Python:**
+   `python -m pip install -r custom_nodes/quokkailab_audio/requirements.txt`, run from
+   the ComfyUI directory. Use the interpreter that runs ComfyUI, not an unrelated
+   system Python. Dependencies are NumPy, SciPy and SoundFile; keep ComfyUI's
+   existing PyTorch installation. **Restart ComfyUI** after either installation method.
 4. **Import the fix workflow** by dragging
    [ltx25-quokkailab-fix.json](workflows/ltx25-quokkailab-fix.json) onto the canvas.
    Expand the model-loader subgraph and select the exact filenames listed below.
@@ -222,3 +229,17 @@ Our long-term mission: buy an H100 to host all the AI-powered Quokkas in the wor
 **No Quokka left behind.**
 
 [Support QuokkaiLab on Ko-fi](https://ko-fi.com/quokkailab)
+
+## Registry package and Cloud share
+
+The Registry package adds a root ComfyUI entry point that re-exports the bundled
+`QuokkaiLabAudioConditioning` class. The four bundled node files and both RC2
+workflow files remain byte-identical to the validated RC2 archive. The downloaded
+Registry archive passed the node import/resolution check and all eight existing
+public-release tests. No GPU generation was required for these packaging checks.
+
+[Open the shared RC2 workflow on Comfy Cloud](https://cloud.comfy.org/?share=1f694bdb5968).
+The share is unchanged. Cloud execution remains blocked at the publication check:
+`QuokkaiLabAudioConditioning` is absent from the Cloud node catalog. Registry
+publication does not automatically install a node on Comfy Cloud. This share is
+not a ComfyHub listing; Creator access and Hub publication are separate steps.
